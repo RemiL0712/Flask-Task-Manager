@@ -1,0 +1,190 @@
+/* style.css */
+
+/* ------------------------------------------------------------- */
+/* ОСНОВНІ СТИЛІ */
+/* ------------------------------------------------------------- */
+
+/* Стилі для всього тіла сторінки */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Стилі для основного контейнера, що містить весь контент */
+.container {
+    background: #fff;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box; /* Враховуємо padding у розмір */
+}
+
+/* Стилі для заголовка сторінки */
+h1 {
+    text-align: center;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* ------------------------------------------------------------- */
+/* СТИЛІ ФОРМИ ТА КНОПОК */
+/* ------------------------------------------------------------- */
+
+/* Стилі для форми додавання нового завдання */
+#add-task-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+#add-task-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#add-task-form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    padding: 10px 15px;
+    border: none;
+    background-color: #5cb85c;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #4cae4c;
+}
+
+/* ------------------------------------------------------------- */
+/* ОСНОВНІ СТИЛІ ДЛЯ ЕЛЕМЕНТІВ СПИСКУ ЗАВДАНЬ */
+/* ------------------------------------------------------------- */
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#task-list li {
+    background: #f9f9f9;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex; /* Робимо li гнучким контейнером */
+    align-items: center; /* Вирівнюємо всі елементи по вертикалі */
+    gap: 10px; /* Додаємо відстань між колонками */
+}
+
+/* Контейнер для назви завдання */
+.task-name {
+    flex-grow: 1; /* Дозволяє блоку назви займати весь доступний простір */
+    word-break: break-all; /* Розбиває довгі слова, щоб вони переносилися */
+}
+
+/* Контейнер для пріоритету - фіксована колонка */
+.task-priority {
+    flex-shrink: 0; /* Запобігає зменшенню розміру */
+    width: 90px; /* Задаємо фіксовану ширину для вирівнювання */
+    text-align: right;
+}
+
+/* Стилі для блоку кнопок дій */
+.actions {
+    display: flex;
+    gap: 5px; /* Відстань між кнопками */
+    flex-shrink: 0; /* Запобігає зменшенню розміру кнопок */
+}
+
+/* Стилі для виконаних завдань */
+#task-list li.completed {
+    background-color: #e0ffe0;
+}
+
+#task-list li.completed .task-name span {
+    text-decoration: line-through;
+    color: #999;
+}
+
+/* ------------------------------------------------------------- */
+/* СТИЛІ КНОПОК ДІЙ (DELETE, COMPLETE, EDIT) */
+/* ------------------------------------------------------------- */
+
+/* Загальні стилі для кнопок */
+.complete-btn, .edit-btn, .delete-btn {
+    padding: 8px 12px;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Кнопка "Виконано" */
+.complete-btn {
+    background-color: #5cb85c;
+}
+.complete-btn:hover {
+    background-color: #4cae4c;
+}
+
+/* Кнопка "Редагувати" */
+.edit-btn {
+    background-color: #3498db;
+}
+.edit-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Кнопка "Видалити" */
+.delete-btn {
+    background-color: #d9534f;
+}
+.delete-btn:hover {
+    background-color: #c9302c;
+}
+
+/* ------------------------------------------------------------- */
+/* СТИЛІ ДЛЯ ПОЗНАЧОК ПРІОРИТЕТІВ */
+/* ------------------------------------------------------------- */
+
+/* Загальні стилі для всіх позначок пріоритетів */
+small.priority-високий,
+small.priority-середній,
+small.priority-низький {
+    font-weight: bold;
+    font-size: 0.85em;
+    padding: 4px 8px;
+    border-radius: 12px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Високий пріоритет - червоний */
+small.priority-високий {
+    background-color: #e74c3c;
+}
+
+/* Середній пріоритет - помаранчевий */
+small.priority-середній {
+    background-color: #f39c12;
+}
+
+/* Низький пріоритет - синьо-зелений */
+small.priority-низький {
+    background-color: #1abc9c;
+}

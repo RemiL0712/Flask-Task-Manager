@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Менеджер Завдань</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Мій Список Завдань</h1>
+
+        <form id="add-task-form" method="POST">
+            <input type="text" name="task_name" id="task-name" placeholder="Введіть нове завдання" required>
+            <select name="priority" id="task-priority">
+                <option value="Високий">Високий</option>
+                <option value="Середній">Середній</option>
+                <option value="Низький">Низький</option>
+            </select>
+            <button type="submit">Додати</button>
+        </form>
+        
+        <ul id="task-list">
+            {% for task in tasks %}
+            <li id="task-{{ task.id }}" {% if task.status %}class="completed"{% endif %}>
+                <div class="task-name">
+                    <span>{{ task.name }}</span>
+                </div>
+                <div class="task-priority">
+                    <small class="priority-{{ task.priority.lower() }}">({{ task.priority }})</small>
+                </div>
+                <div class="actions">
+                    <button type="button" class="complete-btn" data-task-id="{{ task.id }}"><i class="fa-solid fa-check"></i></button>
+                    <button type="button" class="edit-btn" data-task-id="{{ task.id }}"><i class="fa-solid fa-pencil"></i></button>
+                    <button type="button" class="delete-btn" data-task-id="{{ task.id }}"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
