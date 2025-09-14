@@ -32,7 +32,7 @@
 
 1.  Клонуйте репозиторій:
     ```bash
-    git clone [https://github.com/ВАШ_НІКНЕЙМ/Flask-Task-Manager.git](https://github.com/ВАШ_НІКНЕЙМ/Flask-Task-Manager.git)
+    git clone [https://github.com/ВАШ_НІКНЕЙМ/Flask-Task-Manager.git](https://github.com/RemiL0712/Flask-Task-Manager.git)
     cd Flask-Task-Manager
     ```
 2.  Створіть та активуйте віртуальне середовище:
