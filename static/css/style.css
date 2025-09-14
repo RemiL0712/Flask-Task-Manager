@@ -43,85 +43,76 @@ h1 {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
-    align-items: center;
 }
 
-#add-task-form input[type="text"] {
-    flex-grow: 1;
+/* Стилі для поля введення */
+#task-name {
+    flex: 1;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-#add-task-form select {
+/* Стилі для випадаючого списку пріоритетів */
+#task-priority {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-button[type="submit"] {
+/* Стилі для кнопки "Додати" */
+#add-task-form button {
     padding: 10px 15px;
-    border: none;
-    background-color: #5cb85c;
+    background-color: #3498db;
     color: white;
+    border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-button[type="submit"]:hover {
-    background-color: #4cae4c;
+#add-task-form button:hover {
+    background-color: #2980b9;
 }
 
 /* ------------------------------------------------------------- */
-/* ОСНОВНІ СТИЛІ ДЛЯ ЕЛЕМЕНТІВ СПИСКУ ЗАВДАНЬ */
+/* СТИЛІ СПИСКУ ЗАВДАНЬ */
 /* ------------------------------------------------------------- */
 
-ul {
+/* Стилі для списку завдань */
+#task-list {
     list-style-type: none;
     padding: 0;
+    width: 100%;
 }
 
+/* Стилі для кожного елемента списку (завдання) */
 #task-list li {
-    background: #f9f9f9;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    display: flex; /* Робимо li гнучким контейнером */
-    align-items: center; /* Вирівнюємо всі елементи по вертикалі */
-    gap: 10px; /* Додаємо відстань між колонками */
-}
-
-/* Контейнер для назви завдання */
-.task-name {
-    flex-grow: 1; /* Дозволяє блоку назви займати весь доступний простір */
-    word-break: break-all; /* Розбиває довгі слова, щоб вони переносилися */
-}
-
-/* Контейнер для пріоритету - фіксована колонка */
-.task-priority {
-    flex-shrink: 0; /* Запобігає зменшенню розміру */
-    width: 90px; /* Задаємо фіксовану ширину для вирівнювання */
-    text-align: right;
-}
-
-/* Стилі для блоку кнопок дій */
-.actions {
     display: flex;
-    gap: 5px; /* Відстань між кнопками */
-    flex-shrink: 0; /* Запобігає зменшенню розміру кнопок */
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s;
 }
 
-/* Стилі для виконаних завдань */
-#task-list li.completed {
-    background-color: #e0ffe0;
-}
-
+/* Стиль для виконаного завдання */
 #task-list li.completed .task-name span {
     text-decoration: line-through;
-    color: #999;
+    color: #888;
+}
+
+/* Стиль для назви завдання */
+.task-name {
+    flex: 1;
+    margin-right: 10px;
 }
 
 /* ------------------------------------------------------------- */
-/* СТИЛІ КНОПОК ДІЙ (DELETE, COMPLETE, EDIT) */
+/* СТИЛІ КНОПОК ДІЙ (COMPLETE, EDIT, DELETE) */
 /* ------------------------------------------------------------- */
 
 /* Загальні стилі для кнопок */
@@ -163,18 +154,10 @@ ul {
 /* ------------------------------------------------------------- */
 
 /* Загальні стилі для всіх позначок пріоритетів */
-small.priority-високий,
-small.priority-середній,
-small.priority-низький {
-    font-weight: bold;
-    font-size: 0.85em;
-    padding: 4px 8px;
-    border-radius: 12px;
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+.task-priority {
+    margin-right: 15px;
 }
 
-/* Високий пріоритет - червоний */
 small.priority-high {
     background-color: #e74c3c; /* Червоний */
     color: white;
@@ -183,8 +166,6 @@ small.priority-high {
     font-size: 0.7em;
     font-weight: bold;
 }
-
-/* Середній пріоритет - помаранчевий */
 small.priority-medium {
     background-color: #f39c12; /* Помаранчевий */
     color: white;
@@ -193,8 +174,6 @@ small.priority-medium {
     font-size: 0.7em;
     font-weight: bold;
 }
-
-/* Низький пріоритет - синьо-зелений */
 small.priority-low {
     background-color: #2ecc71; /* Зелений */
     color: white;

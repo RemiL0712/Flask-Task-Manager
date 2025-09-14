@@ -20,7 +20,7 @@
             </select>
             <button type="submit">Додати</button>
         </form>
-        
+
         <ul id="task-list">
             {% for task in tasks %}
             <li id="task-{{ task.id }}" {% if task.status %}class="completed"{% endif %}>
@@ -28,7 +28,7 @@
                     <span>{{ task.name }}</span>
                 </div>
                 <div class="task-priority">
-                    <small class="priority-{{ task.priority.lower() }}">({{ task.priority }})
+                    <small class="priority-{{ task.priority.lower() }}">
                         ({% if task.priority == 'high' %}Високий
                         {% elif task.priority == 'medium' %}Середній
                         {% else %}Низький{% endif %})
@@ -43,7 +43,6 @@
             {% endfor %}
         </ul>
     </div>
-    
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

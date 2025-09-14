@@ -1,18 +1,26 @@
 // script.js
-// Цей файл містить логіку взаємодії з користувачем та асинхронні запити до сервера (API).
+// Цей файл відповідає за динамічну взаємодію з користувачем на фронтенді,
+// включаючи обробку подій та асинхронні запити до API-сервісу на бекенді.
 
-// Обробник подій для форми додавання завдання
+// Основний обробник подій для форми додавання нового завдання
 document.getElementById('add-task-form').addEventListener('submit', async (e) => {
+    // Відміняємо стандартну поведінку форми, щоб запобігти перезавантаженню сторінки
     e.preventDefault();
 
     const taskNameInput = document.getElementById('task-name');
     const taskPrioritySelect = document.getElementById('task-priority');
 
-    const taskName = taskNameInput.value;
+    const taskName = taskNameInput.value.trim();
     const priority = taskPrioritySelect.value;
 
-    let priorityToSend = '';
+    // Валідація: якщо назва порожня після видалення пробілів, зупиняємо виконання
+    if (!taskName) {
+        alert('Назва завдання не може бути порожньою.');
+        return;
+    }
 
+    // Перетворення українських значень пріоритетів на англійські для бекенду
+    let priorityToSend;
     if (priority === 'Високий') {
         priorityToSend = 'high';
     } else if (priority === 'Середній') {
@@ -36,6 +44,7 @@ document.getElementById('add-task-form').addEventListener('submit', async (e) =>
 
             const li = document.createElement('li');
             li.id = `task-${newTask.id}`;
+            li.className = `task-item`; // Додаємо універсальний клас для стилізації
             li.innerHTML = `
                 <div class="task-name">
                     <span>${newTask.name}</span>
@@ -51,26 +60,25 @@ document.getElementById('add-task-form').addEventListener('submit', async (e) =>
             `;
             taskList.appendChild(li);
 
+            // Очищаємо поле введення після успішного додавання
             taskNameInput.value = '';
         } else {
             const errorData = await response.json();
             alert(`Помилка: ${errorData.error}`);
         }
     } catch (error) {
-        console.error('Помилка:', error);
+        console.error('Помилка при додаванні завдання:', error);
         alert('Сталася помилка. Спробуйте ще раз.');
     }
 });
 
-// Обробник подій для кнопок "виконано", "редагувати" та "видалити"
+// Делегування подій для кнопок "виконано", "редагувати" та "видалити"
 document.getElementById('task-list').addEventListener('click', async (e) => {
-    // Перевіряємо, чи був клік на кнопці "виконано"
+    // Обробка кліку на кнопці "виконано"
     if (e.target.closest('.complete-btn')) {
         const taskId = e.target.closest('.complete-btn').dataset.taskId;
         const taskItem = document.getElementById(`task-${taskId}`);
-
         try {
-            // Використовуємо PATCH для часткового оновлення статусу
             const response = await fetch(`/api/complete/${taskId}`, { method: 'PATCH' });
             if (response.ok) {
                 taskItem.classList.toggle('completed');
@@ -78,47 +86,43 @@ document.getElementById('task-list').addEventListener('click', async (e) => {
                 alert('Помилка при зміні статусу.');
             }
         } catch (error) {
-            console.error('Помилка:', error);
+            console.error('Помилка при зміні статусу:', error);
             alert('Сталася помилка. Спробуйте ще раз.');
         }
     }
 
-    // Перевіряємо, чи був клік на кнопці "видалити"
+    // Обробка кліку на кнопці "видалити"
     if (e.target.closest('.delete-btn')) {
         const taskId = e.target.closest('.delete-btn').dataset.taskId;
-        const taskItem = document.getElementById(`task-${taskId}`);
-
         if (confirm('Ви впевнені, що хочете видалити це завдання?')) {
             try {
-                // Використовуємо DELETE для видалення завдання
                 const response = await fetch(`/api/delete/${taskId}`, { method: 'DELETE' });
                 if (response.ok) {
-                    taskItem.remove();
+                    document.getElementById(`task-${taskId}`).remove();
                 } else {
                     alert('Помилка при видаленні.');
                 }
             } catch (error) {
-                console.error('Помилка:', error);
+                console.error('Помилка при видаленні:', error);
                 alert('Сталася помилка. Спробуйте ще раз.');
             }
         }
     }
 
-    // Перевіряємо, чи був клік на кнопці "редагувати"
+    // Обробка кліку на кнопці "редагувати"
     if (e.target.closest('.edit-btn')) {
         const taskId = e.target.closest('.edit-btn').dataset.taskId;
         const taskItem = document.getElementById(`task-${taskId}`);
-        const currentNameSpan = taskItem.querySelector('span');
+        const currentNameSpan = taskItem.querySelector('.task-name span');
         const currentName = currentNameSpan.textContent;
 
         const newName = prompt('Введіть нову назву для завдання:', currentName);
-        if (newName && newName !== currentName) {
+        if (newName && newName.trim() !== currentName) {
             try {
-                // Використовуємо PUT для оновлення назви
                 const response = await fetch(`/api/update/${taskId}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ new_name: newName })
+                    body: JSON.stringify({ new_name: newName.trim() })
                 });
 
                 if (response.ok) {
@@ -129,7 +133,7 @@ document.getElementById('task-list').addEventListener('click', async (e) => {
                     alert(`Помилка: ${errorData.error}`);
                 }
             } catch (error) {
-                console.error('Помилка:', error);
+                console.error('Помилка при оновленні назви:', error);
                 alert('Сталася помилка. Спробуйте ще раз.');
             }
         }
