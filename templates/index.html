@@ -28,7 +28,11 @@
                     <span>{{ task.name }}</span>
                 </div>
                 <div class="task-priority">
-                    <small class="priority-{{ task.priority.lower() }}">({{ task.priority }})</small>
+                    <small class="priority-{{ task.priority.lower() }}">({{ task.priority }})
+                        ({% if task.priority == 'high' %}Високий
+                        {% elif task.priority == 'medium' %}Середній
+                        {% else %}Низький{% endif %})
+                    </small>
                 </div>
                 <div class="actions">
                     <button type="button" class="complete-btn" data-task-id="{{ task.id }}"><i class="fa-solid fa-check"></i></button>
