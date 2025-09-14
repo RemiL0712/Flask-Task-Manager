@@ -6,4 +6,4 @@ venv/
 
 # Flask
 tasks.db
-instance/
+instance
