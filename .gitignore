@@ -1,9 +1,35 @@
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.venv/
 .env
+.env.*
 venv/
+build/
+dist/
 
-# Flask
-tasks.db
-instance
+# Flask/SQLite
+instance/
+*.db
+*.sqlite3
+
+# Migrations cache
+migrations/.*
+!migrations
+!migrations/README
+!migrations/versions
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
